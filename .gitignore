@@ -1,0 +1,28 @@
+node_modules/
+
+.vscode/*
+
+!.vscode/settings.json
+
+!.vscode/tasks.json
+
+!.vscode/launch.json
+
+!.vscode/extensions.json
+
+*.code-workspace
+
+
+
+# Local History for Visual Studio Code
+
+.history/
+
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
