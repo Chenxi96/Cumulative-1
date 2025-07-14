@@ -51,3 +51,4 @@
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.pdb
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.genruntimeconfig.cache
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/ref/Cumulative1.dll
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.sourcelink.json
