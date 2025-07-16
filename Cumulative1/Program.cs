@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<SchoolDbContext>();
+builder.Services.AddScoped<TeacherAPIController>();
 var app = builder.Build();
 
 

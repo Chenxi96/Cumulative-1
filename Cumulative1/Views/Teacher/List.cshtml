@@ -1,0 +1,12 @@
+@model IEnumerable<Cumulative1.Models.Teacher>
+
+
+@foreach(Cumulative1.Models.Teacher Teacher in Model) {
+    <div>
+        <h2>@Teacher.TeacherFirstName @Teacher.TeacherLastName</h2>
+        <p>Teacher ID: @Teacher.TeacherId</p>
+        <p>Employee Number: @Teacher.TeacherEmployeeNumber</p>
+        <p>Hired Date: @Teacher.TeacherHiredDate</p>
+        <p>Salary: @Teacher.TeacherSalary</p>
+    </div>
+}

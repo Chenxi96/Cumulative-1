@@ -11,13 +11,15 @@ namespace Cumulative1.Controllers
     [ApiController]
     public class TeacherAPIController : ControllerBase // Created a class without view support
     {
-        private readonly SchoolDbContext _context; // Declared _context variable that has a SchoolDbContext data type
+        private readonly SchoolDbContext _context; // Declared a field named _context that has a SchoolDbContext data type which can only be accessed inside this class and assigned once
 
         // Inject Dependency of SchoolDbContext to _context variable
         public TeacherAPIController(SchoolDbContext context)
         {
             _context = context;
         }
+
+        
 
         // Define a route to "GetAllTeachers" which is a get method
         [HttpGet(template: "GetAllTeachers")]
@@ -68,7 +70,8 @@ namespace Cumulative1.Controllers
 
         // Declared a function that returns a data type of Teacher and has teacherid as a number parameter
         public Teacher GetTeacher(int teacherid)
-        {   
+        {
+
             // Declare Teacher variable with the data type of Teacher and initialize with a Teacher class
             Teacher Teacher = new Teacher(); 
 
