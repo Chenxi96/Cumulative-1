@@ -19,7 +19,7 @@ namespace Cumulative1.Controllers
             _context = context;
         }
 
-        
+
 
         // Define a route to "GetAllTeachers" which is a get method
         [HttpGet(template: "GetAllTeachers")]
@@ -73,7 +73,7 @@ namespace Cumulative1.Controllers
         {
 
             // Declare Teacher variable with the data type of Teacher and initialize with a Teacher class
-            Teacher Teacher = new Teacher(); 
+            Teacher Teacher = new Teacher();
 
             // Creates a connection to the database and dispose connection when code is finished.
             using (MySqlConnection Connection = _context.AccessDatabase())
@@ -81,13 +81,13 @@ namespace Cumulative1.Controllers
                 Connection.Open(); // Connects to the Database
 
                 // Declated Query variable 
-                string Query = $"Select * from teachers where teacherid = {teacherid}"; 
+                string Query = $"Select * from teachers where teacherid = {teacherid}";
 
                 MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
 
                 Command.CommandText = Query; // Set the Sql Statement
 
-                 // Send a query search request to the database to search a query
+                // Send a query search request to the database to search a query
                 using (MySqlDataReader ReaderResult = Command.ExecuteReader())
                 {
                     // Loop Through Query until record returns false
