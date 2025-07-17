@@ -52,3 +52,8 @@
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.genruntimeconfig.cache
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/ref/Cumulative1.dll
 /Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.sourcelink.json
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/chenxilin/Desktop/C#Cumulative1/Cumulative1/obj/Debug/net8.0/Cumulative1.MvcApplicationPartsAssemblyInfo.cs

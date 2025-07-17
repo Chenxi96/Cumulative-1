@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>
 
 </Project>
