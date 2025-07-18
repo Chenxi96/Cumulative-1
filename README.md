@@ -1,8 +1,9 @@
-#Cumulative 1
+# Cumulative 1
 
 Checklist:
 Quantitative: 8 Marks): Implement the required MVP using ASP.NET Core:
-- [x](2 Marks) An API which returns information on all teachers
+
+- [x] (2 Marks) An API which returns information on all teachers
 - [x] (2 Marks) An API which returns all information on a teacher
 - [x] (2 Marks) A web page that displays information on all teachers
 - [x] (2 Marks) A web page that displays all information on a teacher
