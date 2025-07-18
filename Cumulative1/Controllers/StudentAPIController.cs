@@ -64,7 +64,7 @@ namespace Cumulative1.Controllers
             {
                 Connection.Open();
 
-                string Query = "select * from students where studentid = @key";
+                string Query = "select * from students where studentid = @key"; // Search query string
 
                 MySqlCommand Command = Connection.CreateCommand();
 
@@ -77,7 +77,7 @@ namespace Cumulative1.Controllers
                 {
                     while (DataResult.Read())
                     {
-
+                        // Store values into Student
                         Student.StudentId = Convert.ToInt32(DataResult["studentid"]);
                         Student.StudentFirstName = DataResult["studentfname"].ToString();
                         Student.StudentLastName = DataResult["studentlname"].ToString();

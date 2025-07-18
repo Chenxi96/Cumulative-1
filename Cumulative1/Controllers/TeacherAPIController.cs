@@ -199,6 +199,7 @@ namespace Cumulative1.Controllers
                     {
                         Course Course = new Course();
 
+                        // Stores values into Course
                         Course.CourseId = Convert.ToInt32(ReaderResult["courseid"]);
                         Course.CourseCode = ReaderResult["coursecode"].ToString();
                         Course.CourseTeacherId = Convert.ToInt32(ReaderResult["teacherid"]);
