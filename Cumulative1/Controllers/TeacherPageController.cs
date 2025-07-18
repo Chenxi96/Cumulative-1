@@ -19,14 +19,14 @@ namespace Cumulative1.Controllers
         public IActionResult List()
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            List<Teacher> ListOfTeachers = _api.GetAllTeachers();
+            List<Teacher> ListOfTeachers = _api.ListTeachers();
             return View(ListOfTeachers); // returns a view object with the ListOfTeachers
         }
 
         public IActionResult Show(int TeacherId)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            Teacher Teacher = _api.GetTeacher(TeacherId); //getTeacher method with TeacherId as parameter
+            Teacher Teacher = _api.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
             return View(Teacher); // returns a view object with the ListOfTeachers
         }
     }
