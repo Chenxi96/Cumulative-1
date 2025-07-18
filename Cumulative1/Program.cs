@@ -1,5 +1,6 @@
 using Cumulative1.Controllers;
 using Cumulative1.Models;
+using Cumulative1.ViewModels;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<SchoolDbContext>();
 builder.Services.AddScoped<TeacherAPIController>();
+builder.Services.AddScoped<TeacherCourses>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

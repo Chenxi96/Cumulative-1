@@ -1,12 +1,17 @@
-@model Cumulative1.Models.Teacher
+@model Cumulative1.ViewModels.TeacherCourses
 
 <div>
-    <h2>@Model.TeacherFirstName @Model.TeacherLastName</h2>
-    <p>Teacher ID: @Model.TeacherId</p>
-    <p>Employee Number: @Model.TeacherEmployeeNumber</p>
-    <p>Hired Date: @Model.TeacherHiredDate</p>
-    <p>Salary: $@Model.TeacherSalary</p>
+    <h2>@Model.Teacher.TeacherFirstName @Model.Teacher.TeacherLastName</h2>
+    <p>Teacher ID: @Model.Teacher.TeacherId</p>
+    <p>Employee Number: @Model.Teacher.TeacherEmployeeNumber</p>
+    <p>Hired Date: @Model.Teacher.TeacherHiredDate</p>
+    <p>Salary: $@Model.Teacher.TeacherSalary</p>
     <div>
-        @Model.TeacherCourses
+        <p>Courses Taught:</p>
+        <ul>
+            @foreach(Cumulative1.Models.Course Course in Model.Courses) {
+                <li>@Course.CourseName</li>
+            }
+        </ul>
     </div>
 </div>

@@ -99,7 +99,7 @@ namespace Cumulative1.Controllers
         /// "teacherSalary":55.30}
         /// </example>
         /// <returns>A Teacher object</returns>
-        public Teacher FindTeacher(int teacherid) // Declared a function that returns a data type of Teacher and has teacherid as a number parameter
+        public TeacherCourses FindTeacher(int teacherid) // Declared a function that returns a data type of Teacher and has teacherid as a number parameter
         {
 
             // Declare Teacher variable with the data type of Teacher and initialize with a Teacher class
@@ -107,14 +107,13 @@ namespace Cumulative1.Controllers
 
             List<Course> Courses = new List<Course>();
 
-            TeacherCourses TeacherCourses = new TeacherCourses();
 
             // Creates a connection to the database and dispose connection when code is finished.
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open(); // Connects to the Database
 
-                // Declared Query variable
+                // Declared Query variable that retrieves a record in the teachers table that has a specific teacher id
                 string Query = $"Select * from teachers where teacherid = {teacherid}";
 
                 MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
@@ -139,38 +138,44 @@ namespace Cumulative1.Controllers
                 }
             }
 
-            // using (MySqlConnection Connection = _context.AccessDatabase())
-            // {
-            //     Connection.Open(); // Connects to the Database
+            
 
-            //     // Declared Query variable
-            //     string Query = $"Select * from courses where teacherid = {teacherid}";
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open(); // Connects to the Database
 
-            //     MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
+                // Declared Query variable to retrieve a record in courses table that has a specific teacher id
+                string Query = $"Select * from courses where teacherid = {teacherid}";
 
-            //     Command.CommandText = Query; // Set the Sql Statement
+                MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
 
-            //     // Send a query search request to the database to search a query
-            //     using (MySqlDataReader ReaderResult = Command.ExecuteReader())
-            //     {
+                Command.CommandText = Query; // Set the Sql Statement
 
-            //         // Loop Through Query until record returns false
-            //         while (ReaderResult.Read())
-            //         {
-            //             Course Course = new Course();
+                // Send a query search request to the database to search a query
+                using (MySqlDataReader ReaderResult = Command.ExecuteReader())
+                {
 
-            //             Course.CourseId = Convert.ToInt32(ReaderResult["courserid"]);
-            //             Course.CourseCode = ReaderResult["coursecode"].ToString();
-            //             Course.CourseTeacherId = Convert.ToInt32(ReaderResult["coursecode"]);
-            //             Course.CourseStartDate = Convert.ToDateTime(ReaderResult["employeenumber"]);
-            //             Course.CourseFinishDate = Convert.ToDateTime(ReaderResult["hiredate"]);
-            //             Course.CourseName = ReaderResult["salary"].ToString();
+                    // Loop Through Query until record returns false
+                    while (ReaderResult.Read())
+                    {
+                        Course Course = new Course();
 
-            //             Courses.Add(Course);
-            //         }
-            //     }
-            // }
-            return Teacher;
+                        Course.CourseId = Convert.ToInt32(ReaderResult["courseid"]);
+                        Course.CourseCode = ReaderResult["coursecode"].ToString();
+                        Course.CourseTeacherId = Convert.ToInt32(ReaderResult["teacherid"]);
+                        Course.CourseStartDate = Convert.ToDateTime(ReaderResult["startdate"]);
+                        Course.CourseFinishDate = Convert.ToDateTime(ReaderResult["finishdate"]);
+                        Course.CourseName = ReaderResult["coursename"].ToString();
+
+                        Courses.Add(Course);
+                    }
+                }
+            }
+
+            TeacherCourses teacherWithCourses = new TeacherCourses();
+            teacherWithCourses.Courses = Courses;
+            teacherWithCourses.Teacher = Teacher;
+            return teacherWithCourses;
         }
 
     }

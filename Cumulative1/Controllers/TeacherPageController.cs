@@ -1,4 +1,5 @@
 using Cumulative1.Models;
+using Cumulative1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -26,7 +27,7 @@ namespace Cumulative1.Controllers
         public IActionResult Show(int TeacherId)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            Teacher Teacher = _api.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
+            TeacherCourses Teacher = _api.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
             return View(Teacher); // returns a view object with the ListOfTeachers
         }
     }
