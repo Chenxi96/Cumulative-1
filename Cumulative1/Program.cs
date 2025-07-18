@@ -6,9 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// database reference
 builder.Services.AddScoped<SchoolDbContext>();
-builder.Services.AddScoped<TeacherAPIController>();
+
+// reference to ViewModel
 builder.Services.AddScoped<TeacherCourses>();
+
+// Api reference
+builder.Services.AddScoped<TeacherAPIController>();
 builder.Services.AddScoped<StudentAPIController>();
 
 builder.Services.AddControllers();
