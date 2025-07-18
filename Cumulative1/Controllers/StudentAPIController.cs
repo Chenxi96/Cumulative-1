@@ -17,8 +17,8 @@ namespace Cumulative1.Controllers
             _context = context;
         }
 
-        [HttpGet(template: "FindStudent")]
-        public List<Student> FindStudent()
+        [HttpGet(template: "ListStudent")]
+        public List<Student> ListStudent()
         {
             // Declare Students variable with a list and a type of student and initialized list with type student
             List<Student> Students = new List<Student>();
@@ -54,27 +54,29 @@ namespace Cumulative1.Controllers
             return Students;
         }
 
-        [HttpGet(template: "ListStudents")]
+        [HttpGet(template: "FindStudent")]
 
-        public List<Student> ListStudents(int studentId)
+        public Student FindStudent(int studentId)
         {
-            List<Student> Students = new List<Student>();
+            Student Student = new Student();
 
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open();
 
+                string Query = "select * from students where studentid = @key";
+
                 MySqlCommand Command = Connection.CreateCommand();
 
-                string Query = "select * from students where = " + studentId;
+                Command.Parameters.AddWithValue("@key", studentId);
 
                 Command.CommandText = Query;
+                Command.Prepare();
 
                 using (MySqlDataReader DataResult = Command.ExecuteReader())
                 {
                     while (DataResult.Read())
                     {
-                        Student Student = new Student();
 
                         Student.StudentId = Convert.ToInt32(DataResult["studentid"]);
                         Student.StudentFirstName = DataResult["studentfname"].ToString();
@@ -82,11 +84,10 @@ namespace Cumulative1.Controllers
                         Student.StudentNumber = DataResult["studentnumber"].ToString();
                         Student.StudentEnrolDate = Convert.ToDateTime(DataResult["enroldate"]);
 
-                        Students.Add(Student);
                     }
                 }
             }
-            return Students;
+            return Student;
         }
     }
 }

@@ -1,17 +1,22 @@
 @model Cumulative1.ViewModels.TeacherCourses
 
-<div>
-    <h2>@Model.Teacher.TeacherFirstName @Model.Teacher.TeacherLastName</h2>
-    <p>Teacher ID: @Model.Teacher.TeacherId</p>
-    <p>Employee Number: @Model.Teacher.TeacherEmployeeNumber</p>
-    <p>Hired Date: @Model.Teacher.TeacherHiredDate</p>
-    <p>Salary: $@Model.Teacher.TeacherSalary</p>
-    <div>
-        <p>Courses Taught:</p>
-        <ul>
-            @foreach(Cumulative1.Models.Course Course in Model.Courses) {
-                <li>@Course.CourseName</li>
-            }
-        </ul>
+
+@if(@Model.Teacher.TeacherError == null) {
+    <div id="body-container">
+        <h2>@Model.Teacher.TeacherFirstName @Model.Teacher.TeacherLastName</h2>
+        <p>Teacher ID: @Model.Teacher.TeacherId</p>
+        <p>Employee Number: @Model.Teacher.TeacherEmployeeNumber</p>
+        <p>Hired Date: @Model.Teacher.TeacherHiredDate</p>
+        <p>Salary: $@Model.Teacher.TeacherSalary</p>
+        <div>
+            <p>Courses Taught:</p>
+            <ul>
+                @foreach(Cumulative1.Models.Course Course in Model.Courses) {
+                    <li>@Course.CourseName</li>
+                }
+            </ul>
+        </div>
     </div>
-</div>
+} else {
+    <p>No Teacher with that teacher Id is available</p>
+}

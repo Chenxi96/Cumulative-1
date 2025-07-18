@@ -1,8 +1,14 @@
 @model IEnumerable<Cumulative1.Models.Teacher>
 
+<h2>Specify the Date to filter</h2>
+<form action="/teacher/list" method="get">
+    <input type="date" name="startdate">
+    <input type="date" name="enddate">
+    <input type="submit" value="Submit">
+</form>
 
 @foreach(Cumulative1.Models.Teacher Teacher in Model) {
-    <div>
+    <div id="body-container">
         <h2>@Teacher.TeacherFirstName @Teacher.TeacherLastName</h2>
         <a href="../Teacher/show?teacherId=@Teacher.TeacherId">Teacher ID: @Teacher.TeacherId</a>
         <p>Employee Number: @Teacher.TeacherEmployeeNumber</p>

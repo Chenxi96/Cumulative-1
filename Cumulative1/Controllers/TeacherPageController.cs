@@ -17,10 +17,10 @@ namespace Cumulative1.Controllers
         }
 
         // Declared a function called list
-        public IActionResult List()
+        public IActionResult List(DateTime ?startDate, DateTime ?endDate)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            List<Teacher> ListOfTeachers = _api.ListTeachers();
+            List<Teacher> ListOfTeachers = _api.ListTeachers(startDate, endDate);
             return View(ListOfTeachers); // returns a view object with the ListOfTeachers
         }
 

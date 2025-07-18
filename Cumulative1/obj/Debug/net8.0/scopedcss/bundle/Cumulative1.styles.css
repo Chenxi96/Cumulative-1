@@ -40,6 +40,10 @@ button.accept-policy[b-12d6w8digs] {
   line-height: inherit;
 }
 
+#body-container[b-12d6w8digs] {
+  background-color: black;
+}
+
 .footer[b-12d6w8digs] {
   position: absolute;
   bottom: 0;

@@ -1,0 +1,10 @@
+@model IEnumerable<Cumulative1.Models.Student>
+
+@foreach(Cumulative1.Models.Student Student in Model) {
+    <div id="body-container">
+        <h2>@Student.StudentFirstName @Student.StudentLastName</h2>
+        <a href="../Student/show?studentId=@Student.StudentId">Student ID: @Student.StudentId</a>
+        <p>Student Number: @Student.StudentNumber</p>
+        <p>Enrol Date: @Student.StudentEnrolDate</p>
+    </div>
+}

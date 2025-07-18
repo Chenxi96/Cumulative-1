@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SchoolDbContext>();
 builder.Services.AddScoped<TeacherAPIController>();
 builder.Services.AddScoped<TeacherCourses>();
+builder.Services.AddScoped<StudentAPIController>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -14,6 +14,6 @@ namespace Cumulative1.Models
 
         public decimal TeacherSalary { get; set; } // Field to store teacher salary as a decimal type
 
-        public List<Course> TeacherCourses { get; set;}
+        public string TeacherError { get; set; } // Field to store no Teacher records error
     }
 }
