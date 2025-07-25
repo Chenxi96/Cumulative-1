@@ -8,27 +8,37 @@ namespace Cumulative1.Controllers
     public class TeacherController : Controller
     {
         // private field that can only be used inside the class TeacherController and can only be initialized once
-        private readonly TeacherAPIController _api;
+        private readonly TeacherAPIController _teacherApi;
+        private readonly CourseAPIController _courseApi;
 
         // set the _api value to api from TeacherAPIController
-        public TeacherController(TeacherAPIController api)
+        public TeacherController(TeacherAPIController teacherApi, CourseAPIController courseApi)
         {
-            _api = api;
+            _teacherApi = teacherApi;
+            _courseApi = courseApi;
         }
 
         // Declared a function called list
         public IActionResult List(DateTime ?startDate, DateTime ?endDate)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            List<Teacher> ListOfTeachers = _api.ListTeachers(startDate, endDate);
+            List<Teacher> ListOfTeachers = _teacherApi.ListTeachers(startDate, endDate);
             return View(ListOfTeachers); // returns a view object with the ListOfTeachers
         }
 
         public IActionResult Show(int TeacherId)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            TeacherCourses Teacher = _api.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
-            return View(Teacher); // returns a view object with the ListOfTeachers
+            Teacher Teacher = _teacherApi.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
+
+            List<Course> Courses = _courseApi.ListCoursesForTeacher(TeacherId);
+
+            TeacherCourses TeacherCourses = new TeacherCourses();
+
+            TeacherCourses.Teacher = Teacher;
+            TeacherCourses.Courses = Courses;
+
+            return View(TeacherCourses); // returns a view object with the ListOfTeachers
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Cumulative1.Controllers
                 {
                     while (ReaderResult.Read())
                     {
-                        Course Course = new Course(); 
+                        Course Course = new Course();
 
                         // Insert the values into the course object
                         Course.CourseId = Convert.ToInt32(ReaderResult["courseid"]);
@@ -86,6 +86,49 @@ namespace Cumulative1.Controllers
                 }
             }
             return Courses;
+        }
+
+        public List<Course> ListCoursesForTeacher(int teacherid)
+        {
+            List<Course> Courses = new List<Course>();
+
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open(); // Connects to the Database
+
+                // Declared Query variable to retrieve a record in courses table that has a specific teacher id
+                string Query = $"Select * from courses where teacherid = @key";
+
+                MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
+
+                Command.Parameters.AddWithValue("@key", teacherid);
+                Command.Prepare();
+
+                Command.CommandText = Query; // Set the Sql Statement
+
+                // Send a query search request to the database to search a query
+                using (MySqlDataReader ReaderResult = Command.ExecuteReader())
+                {
+
+                    // Loop Through Query until record returns false
+                    while (ReaderResult.Read())
+                    {
+                        Course Course = new Course();
+
+                        // Stores values into Course
+                        Course.CourseId = Convert.ToInt32(ReaderResult["courseid"]);
+                        Course.CourseCode = ReaderResult["coursecode"].ToString();
+                        Course.CourseTeacherId = Convert.ToInt32(ReaderResult["teacherid"]);
+                        Course.CourseStartDate = Convert.ToDateTime(ReaderResult["startdate"]);
+                        Course.CourseFinishDate = Convert.ToDateTime(ReaderResult["finishdate"]);
+                        Course.CourseName = ReaderResult["coursename"].ToString();
+
+                        Courses.Add(Course);
+                    }
+
+                }
+                return Courses;
+            }
         }
     }
 }
