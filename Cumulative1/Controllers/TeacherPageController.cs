@@ -19,7 +19,7 @@ namespace Cumulative1.Controllers
         }
 
         // Declared a function called list
-        public IActionResult List(DateTime ?startDate, DateTime ?endDate)
+        public IActionResult List(DateTime? startDate, DateTime? endDate)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
             List<Teacher> ListOfTeachers = _teacherApi.ListTeachers(startDate, endDate);
@@ -29,16 +29,22 @@ namespace Cumulative1.Controllers
         public IActionResult Show(int TeacherId)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
-            Teacher Teacher = _teacherApi.FindTeacher(TeacherId); //getTeacher method with TeacherId as parameter
+            Teacher Teacher = _teacherApi.FindTeacher(TeacherId); //Get Teacher method with TeacherId as parameter
 
-            List<Course> Courses = _courseApi.ListCoursesForTeacher(TeacherId);
+            List<Course> Courses = _courseApi.ListCoursesForTeacher(TeacherId); // Get a list of teacher's courses
 
-            TeacherCourses TeacherCourses = new TeacherCourses();
+            TeacherCourses TeacherCourses = new TeacherCourses(); //Create a instance of TeacherCourses
 
+            // Add Teacher and Courses into TeacherCourses
             TeacherCourses.Teacher = Teacher;
             TeacherCourses.Courses = Courses;
 
-            return View(TeacherCourses); // returns a view object with the ListOfTeachers
+            return View(TeacherCourses); // returns a view object with the TeacherCourses object
+        }
+
+        public IActionResult New()
+        {
+            return View();
         }
     }
 }

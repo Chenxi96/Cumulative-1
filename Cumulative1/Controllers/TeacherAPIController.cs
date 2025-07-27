@@ -177,5 +177,34 @@ namespace Cumulative1.Controllers
             return Teacher;
         }
 
+        [HttpPost(template: "addTeacher")]
+        // Declared a method that adds a teacher in the school db using form data retrieved from browser
+        public int AddTeacher([FromForm] string teacherfName, [FromForm] string teacherLName, [FromForm] string employeeNumber, [FromForm] DateTime hireDate, [FromForm] decimal salary)
+        {
+            // Connect to database
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+
+                // Insert query string
+                string query = "INSERT INTO teachers(teacherfname, teacherlname, employeenumber, hiredate, salary) VALUE(@teacherfname,@teacherlname,@employeenumber,@hiredate,@salary)";
+                MySqlCommand Command = Connection.CreateCommand();
+
+                // Sanitize the input field values
+                Command.Parameters.AddWithValue("@teacherfname", teacherfName);
+                Command.Parameters.AddWithValue("@teacherlname", teacherLName);
+                Command.Parameters.AddWithValue("@employeenumber", employeeNumber);
+                Command.Parameters.AddWithValue("@hiredate", hireDate);
+                Command.Parameters.AddWithValue("@salary", salary);
+
+                Command.CommandText = query; // Add query to CommandText
+
+                Command.ExecuteNonQuery(); // execute query request
+
+                return Convert.ToInt32(Command.LastInsertedId); // return the inserted teacher id
+            }
+            return 0; // return 0 if database connection fails
+        }
+
     }
 }
