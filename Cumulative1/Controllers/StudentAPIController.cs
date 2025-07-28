@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Cumulative1.Models;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace Cumulative1.Controllers
 {
-    [Route(template: "api/Students")]
+    [Route(template: "api/Student")]
     [ApiController]
     public class StudentAPIController : ControllerBase
     {
@@ -88,6 +89,32 @@ namespace Cumulative1.Controllers
                 }
             }
             return Student;
+        }
+        [HttpPost(template: "AddStudent")] // Route to Add student method
+        public int AddStudent([FromBody] Student StudentData) // Created a method to add a student and returns student id
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open(); // open connection to database
+
+                // Query string for inserting new student
+                string query = "INSERT INTO students(studentfname, studentlname, studentnumber, enroldate) VALUE(@firstname, @lastname, @studentnumber, @enroldate)";
+
+                // Created object to be sent to database
+                MySqlCommand Command = Connection.CreateCommand();
+                // Sanitize parameter value to be added to query string
+                Command.Parameters.AddWithValue("@firstname", StudentData.StudentFirstName);
+                Command.Parameters.AddWithValue("@lastname", StudentData.StudentLastName);
+                Command.Parameters.AddWithValue("@studentnumber", StudentData.StudentNumber);
+                Command.Parameters.AddWithValue("@enroldate", StudentData.StudentEnrolDate);
+
+                Command.CommandText = query;
+
+                // Execute Query
+                Command.ExecuteNonQuery();
+                return Convert.ToInt32(Command.LastInsertedId); // Return inserted student id as a number
+            }
+            return 0; // return 0 if failed to create
         }
     }
 }

@@ -1,28 +1,36 @@
 # Cumulative 1
 
 Checklist:
-Quantitative: 8 Marks): Implement the required MVP using ASP.NET Core:
 
-- [x] (2 Marks) An API which returns information on all teachers
-- [x] (2 Marks) An API which returns all information on a teacher
-- [x] (2 Marks) A web page that displays information on all teachers
-- [x] (2 Marks) A web page that displays all information on a teacher
+Quantitative: 8 Marks): Implement the required MVP using ASP.NET Core:
+- [x] (2 Marks) An API which adds a Teacher
+- [ ] (2 Marks) An API which deletes a Teacher
+- [x] (2 Marks) A web page that allows a user to enter new Teacher information
+- [ ] (2 Marks) A web page that confirms the action to delete a Teacher
 (Qualitative: 8 Marks): Document your work with (a) descriptive:
-- [x] (2 Marks) Summary blocks for your API methods
-- [x] (2 Marks) Teacher Model Properties (Teacher.cs)
-- [x] (2 Marks) Variable names
+- [ ] (2 Marks) Summary blocks for your API methods
+- [ ] (2 Marks) Teacher Model Properties (Teacher.cs)
+- [ ] (2 Marks) Variable names
 - [x] (2 Marks) Project .readme
 (Testing: 8 Marks): Include evidence of the following testing:
-- [x] (2 Marks) Your API that Lists Teachers
-- [x] (2 Marks) Your API that Finds a Teacher by the Teacher’s ID
-- [x] (2 Marks) Your web page that displays all teachers
-- [x] (2 Marks) Your web page that displays a teacher
+- [ ] (2 Marks) Your API that adds a Teacher using POST Data
+- [ ] (2 Marks) Your API that deletes a Teacher
+- [ ] (2 Marks) Your web page that allows a user to enter new Teacher information
+- [ ] (2 Marks) Your web page that confirms the action to delete a Teacher
 (Initiative: 8 Marks): Earn up to 8 Initiative Marks by improving on MVP
-- [x] (2 Marks) Error Handling when trying to access a teacher that does not exist
-- [x] (2 Marks) On Teacher/List.cshtml, search for a Teacher by their Hire Date within a range
-- [x] (2 Marks) Read functionality for Students
-- [x] (2 Marks) Read functionality for Courses
-- [x] (2 Marks) On /Teacher/Show.cshtml, display all Courses taught by that teacher (Hint: try
-a ViewModel)
-- [x] (2 Marks) Significant Layout and Styling Adjustments to /Teacher/List.cshtml and
-/Teacher/Show.cshtml
+- [ ] (2 Marks) Error Handling on Delete when trying to delete a teacher that does not exist
+- [ ] (2 Marks) Error Handling on Add when the Teacher Name is empty
+- [ ] (2 Marks) Error Handling on Add when the Teacher Hire Date is in the future
+- [ ] (2 Marks) Error Handling on Add when the Employee Number is not “T” followed by
+digits1
+- [ ] (2 Marks) Error Handling on Add when the Employee Number is already taken by a different Teacher
+- [x] (2 Marks) Add Functionality Students
+- [ ] (2 Marks) Delete Functionality for Students
+- [ ] (2 Marks) Add Functionality Courses
+- [ ] (2 Marks) Delete Functionality for Courses
+- [ ] (2 Marks) Use JS and AJAX to add a Teacher
+- [ ] (2 Marks) Use JS and AJAX to delete a Teacher
+- [ ] (2 Marks) Modify Teachers table with “teacherworkphone” field, include that field as part of the Add functionality
+
+1 Best practice would be to have the Teacher Employee Number managed by the database as a unique
+identifier, similar to the Teacher Id primary key. Not part of this assignment

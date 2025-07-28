@@ -87,7 +87,7 @@ namespace Cumulative1.Controllers
             }
             return Courses;
         }
-
+        [HttpGet(template: "ListCoursesForTeacher")]
         public List<Course> ListCoursesForTeacher(int teacherid)
         {
             List<Course> Courses = new List<Course>();
