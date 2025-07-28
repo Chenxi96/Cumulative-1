@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Cumulative1.Models;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Cumulative1.Controllers
 {
@@ -130,5 +131,30 @@ namespace Cumulative1.Controllers
                 return Courses;
             }
         }
+        [HttpPost]
+        public int AddCourse([FromBody] Course CourseData)
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+
+                string query = "INSERT INTO courses(coursecode, teacherid, startdate, finishdate, coursename) VALUE(@coursecode, @teacherid, @startdate, @finishdate, @coursename)";
+
+                MySqlCommand Command = Connection.CreateCommand();
+
+                Command.Parameters.AddWithValue("@coursecode", CourseData.CourseCode);
+                Command.Parameters.AddWithValue("@teacherid", CourseData.CourseTeacherId);
+                Command.Parameters.AddWithValue("@startdate", CourseData.CourseStartDate);
+                Command.Parameters.AddWithValue("@finishdate", CourseData.CourseFinishDate);
+                Command.Parameters.AddWithValue("@coursename", CourseData.CourseName);
+
+                Command.CommandText = query;
+
+                Command.ExecuteNonQuery();
+                return Convert.ToInt32(Command.LastInsertedId);
+            }
+            return 0;
+        }
+    
     }
 }
