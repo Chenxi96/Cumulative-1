@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Cumulative1.Models;
 using Cumulative1.ViewModels;
+using System.Diagnostics;
 
 namespace Cumulative1.Controllers
 {
@@ -204,6 +205,26 @@ namespace Cumulative1.Controllers
                 return Convert.ToInt32(Command.LastInsertedId); // return the inserted teacher id
             }
             return 0; // return 0 if database connection fails
+        }
+
+        [HttpDelete(template: "removeTeacher")]
+        public int RemoveTeacher(int teacherId)
+        {
+            Debug.WriteLine("triggered");
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+
+                string query = "DELETE FROM teachers WHERE teacherid = @id";
+                MySqlCommand Command = Connection.CreateCommand();
+                Command.Parameters.AddWithValue("@id", teacherId);
+
+                Command.CommandText = query;
+
+                return Command.ExecuteNonQuery();
+            }
+
+            return 0;
         }
 
     }
