@@ -46,5 +46,13 @@ namespace Cumulative1.Controllers
         {
             return View();
         }
+        
+        [HttpPost]
+        public IActionResult Create(Teacher NewTeacher)
+        {
+            int id = _teacherApi.AddTeacher(NewTeacher);
+
+            return RedirectToAction("Show", new {teacherid = id});
+        }
     }
 }

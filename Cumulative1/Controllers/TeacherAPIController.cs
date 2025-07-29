@@ -179,7 +179,7 @@ namespace Cumulative1.Controllers
 
         [HttpPost(template: "addTeacher")]
         // Declared a method that adds a teacher in the school db using form data retrieved from browser
-        public int AddTeacher([FromForm] string teacherfName, [FromForm] string teacherLName, [FromForm] string employeeNumber, [FromForm] DateTime hireDate, [FromForm] decimal salary)
+        public int AddTeacher([FromBody] Teacher TeacherData)
         {
             // Connect to database
             using (MySqlConnection Connection = _context.AccessDatabase())
@@ -191,11 +191,11 @@ namespace Cumulative1.Controllers
                 MySqlCommand Command = Connection.CreateCommand();
 
                 // Sanitize the input field values
-                Command.Parameters.AddWithValue("@teacherfname", teacherfName);
-                Command.Parameters.AddWithValue("@teacherlname", teacherLName);
-                Command.Parameters.AddWithValue("@employeenumber", employeeNumber);
-                Command.Parameters.AddWithValue("@hiredate", hireDate);
-                Command.Parameters.AddWithValue("@salary", salary);
+                Command.Parameters.AddWithValue("@teacherfname", TeacherData.TeacherFirstName);
+                Command.Parameters.AddWithValue("@teacherlname", TeacherData.TeacherLastName);
+                Command.Parameters.AddWithValue("@employeenumber", TeacherData.TeacherEmployeeNumber);
+                Command.Parameters.AddWithValue("@hiredate", TeacherData.TeacherHiredDate);
+                Command.Parameters.AddWithValue("@salary", TeacherData.TeacherSalary);
 
                 Command.CommandText = query; // Add query to CommandText
 

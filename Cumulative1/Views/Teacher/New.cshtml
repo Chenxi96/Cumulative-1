@@ -1,26 +1,26 @@
 
 
 <h2>Add Teacher</h2>
-<form action="../api/teacher/addteacher" method="post">
+<form action="/teacher/create" method="POST">
     <div>
         <label for="teacherFName">First Name:</label>
-        <input id="teacherFName" type="text" name="teacherfname">
+        <input id="teacherFName" type="text" name="TeacherFirstName">
     </div>
     <div>
         <label for="teacherLName">Last Name:</label>
-        <input id="teacherLName" type="text" name="teacherlname">
+        <input id="teacherLName" type="text" name="TeacherLastName">
     </div>
     <div>
         <label for="employeeNumber">Employee Number:</label>
-        <input id="employeeNumber" type="text" name="employeenumber">
+        <input id="employeeNumber" type="text" name="TeacherEmployeeNumber">
     </div>
     <div>
         <label for="hireDate">Hire Date:</label>
-        <input id="hireDate" type="date" name="hiredate">
+        <input id="hireDate" type="date" name="TeacherHiredDate">
     </div>
     <div>
         <label for="salary">Salary:</label>
-        <input id="salary" type="number" step="0.01" name="salary">
+        <input id="salary" type="number" step="0.01" name="TeacherSalary ">
     </div>
     <input type="submit">
 </form>
