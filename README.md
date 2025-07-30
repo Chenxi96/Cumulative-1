@@ -4,9 +4,9 @@ Checklist:
 
 (Quantitative: 8 Marks): Implement the required MVP using ASP.NET Core:
 - [x] (2 Marks) An API which adds a Teacher
-- [ ] (2 Marks) An API which deletes a Teacher
+- [x] (2 Marks) An API which deletes a Teacher
 - [x] (2 Marks) A web page that allows a user to enter new Teacher information
-- [ ] (2 Marks) A web page that confirms the action to delete a Teacher
+- [x] (2 Marks) A web page that confirms the action to delete a Teacher
 (Qualitative: 8 Marks): Document your work with (a) descriptive:
 - [ ] (2 Marks) Summary blocks for your API methods
 - [ ] (2 Marks) Teacher Model Properties (Teacher.cs)

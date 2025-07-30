@@ -56,19 +56,20 @@ namespace Cumulative1.Controllers
 
         [HttpGet(template: "listCourses")]
 
-        public List<Course> ListCourses()
+        public List<Course> ListCourses() // Method to return a list of courses
         {
-            List<Course> Courses = new List<Course>();
+            List<Course> Courses = new List<Course>(); // Create an instance of List of courses
 
+            // Connects with Database and closes the connection after retrieving a record
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open();
 
                 MySqlCommand Command = Connection.CreateCommand();
 
-                string query = "select * from courses";
+                string query = "select * from courses"; // string query
 
-                using (MySqlDataReader ReaderResult = Command.ExecuteReader())
+                using (MySqlDataReader ReaderResult = Command.ExecuteReader()) // Execute
                 {
                     while (ReaderResult.Read())
                     {

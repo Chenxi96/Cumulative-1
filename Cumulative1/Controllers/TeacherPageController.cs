@@ -18,7 +18,7 @@ namespace Cumulative1.Controllers
             _courseApi = courseApi;
         }
 
-        // Declared a function called list
+        // Declared a function that shows a list of teachers page
         public IActionResult List(DateTime? startDate, DateTime? endDate)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
@@ -26,6 +26,7 @@ namespace Cumulative1.Controllers
             return View(ListOfTeachers); // returns a view object with the ListOfTeachers
         }
 
+        // Directs to show teacher with specific id page
         public IActionResult Show(int TeacherId)
         {
             // Declared a variable named ListOfTeachers that holds a list of Teacher objects.
@@ -42,17 +43,32 @@ namespace Cumulative1.Controllers
             return View(TeacherCourses); // returns a view object with the TeacherCourses object
         }
 
+        // Declared a method that directs to create teacher form page
         public IActionResult New()
         {
             return View();
         }
-        
-        [HttpPost]
+
+        // Declared a method that creates the teacher record then redirects to the teacher show page
         public IActionResult Create(Teacher NewTeacher)
         {
             int id = _teacherApi.AddTeacher(NewTeacher);
 
-            return RedirectToAction("Show", new {teacherid = id});
+            return RedirectToAction("Show", new { teacherid = id });
+        }
+
+        // Declared a method that confirms deleting teacher page
+        public IActionResult DeleteConfirm(int teacherId)
+        {
+            Teacher teacher = _teacherApi.FindTeacher(teacherId);
+            return View(teacher);
+        }
+
+        // Declared a method that delete the selected teacher page
+        public IActionResult Delete(int teacherId)
+        {
+            _teacherApi.DeleteTeacher(teacherId); // Deletes specific teacher with teacher id
+            return RedirectToAction("list"); // Redirects to list of teacher page
         }
     }
 }

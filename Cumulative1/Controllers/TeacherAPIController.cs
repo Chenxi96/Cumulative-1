@@ -207,25 +207,28 @@ namespace Cumulative1.Controllers
             return 0; // return 0 if database connection fails
         }
 
-        [HttpDelete(template: "removeTeacher")]
-        public int RemoveTeacher(int teacherId)
+        [HttpDelete(template: "DeleteTeacher")]
+        public int DeleteTeacher(int teacherId) // Method to remove a teacher record
         {
-            Debug.WriteLine("triggered");
+            // Will close connection after the query has been executed
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open();
 
-                string query = "DELETE FROM teachers WHERE teacherid = @id";
+                string query = "DELETE FROM teachers WHERE teacherid = @id"; // Query string
                 MySqlCommand Command = Connection.CreateCommand();
+                // Sanitize teacher id
                 Command.Parameters.AddWithValue("@id", teacherId);
 
-                Command.CommandText = query;
+                Command.CommandText = query; // Add query string to command text
 
-                return Command.ExecuteNonQuery();
+                return Command.ExecuteNonQuery(); // Execute query
             }
 
-            return 0;
+            return 0; // Return 0 if fails
         }
+
+
 
     }
 }
