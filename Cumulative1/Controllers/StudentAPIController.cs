@@ -116,5 +116,24 @@ namespace Cumulative1.Controllers
             }
             return 0; // return 0 if failed to create
         }
+        [HttpDelete(template: "DeleteStudent")]
+        // Created a method to delete a specific student record
+        public int DeleteStudent(int studentId)
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+
+                string query = "Delete From students where studentid = @id"; // query string
+
+                MySqlCommand Command = Connection.CreateCommand();
+                Command.Parameters.AddWithValue("@id", studentId); // Sanitize input value
+
+                Command.CommandText = query; 
+
+                return Command.ExecuteNonQuery(); // Execute Query Search
+            }
+            return 0;
+        }
     }
 }
