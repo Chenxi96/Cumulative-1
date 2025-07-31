@@ -19,6 +19,7 @@ namespace Cumulative1.Controllers
         }
 
         [HttpGet(template: "ListStudent")]
+        // Method that returns a list of students
         public List<Student> ListStudent()
         {
             // Declare Students variable with a list and a type of student and initialized list with type student
@@ -56,7 +57,7 @@ namespace Cumulative1.Controllers
         }
 
         [HttpGet(template: "FindStudent")]
-
+        // Method that return a specific student
         public Student FindStudent(int studentId)
         {
             Student Student = new Student();
@@ -69,7 +70,7 @@ namespace Cumulative1.Controllers
 
                 MySqlCommand Command = Connection.CreateCommand();
 
-                Command.Parameters.AddWithValue("@key", studentId);
+                Command.Parameters.AddWithValue("@key", studentId); // Sanitize input to be used for the query string
 
                 Command.CommandText = Query;
                 Command.Prepare();

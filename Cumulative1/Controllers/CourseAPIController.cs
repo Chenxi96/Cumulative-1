@@ -135,14 +135,17 @@ namespace Cumulative1.Controllers
         [HttpPost]
         public int AddCourse([FromBody] Course CourseData)
         {
+            // Connection will close after executing the insert
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open();
 
+                // String query
                 string query = "INSERT INTO courses(coursecode, teacherid, startdate, finishdate, coursename) VALUE(@coursecode, @teacherid, @startdate, @finishdate, @coursename)";
 
                 MySqlCommand Command = Connection.CreateCommand();
 
+                // Sanitize data to be used in the string query
                 Command.Parameters.AddWithValue("@coursecode", CourseData.CourseCode);
                 Command.Parameters.AddWithValue("@teacherid", CourseData.CourseTeacherId);
                 Command.Parameters.AddWithValue("@startdate", CourseData.CourseStartDate);
@@ -152,7 +155,27 @@ namespace Cumulative1.Controllers
                 Command.CommandText = query;
 
                 Command.ExecuteNonQuery();
-                return Convert.ToInt32(Command.LastInsertedId);
+                return Convert.ToInt32(Command.LastInsertedId); // return the last inserted course id
+            }
+            return 0;
+        }
+        [HttpDelete(template: "DeleteCourse")]
+        // Declared a method that delete a specific course record with course id
+        public int DeleteCourse(int courseid)
+        {
+            using (MySqlConnection connection = _context.AccessDatabase())
+            {
+                connection.Open();
+
+                string query = "Delete From Courses Where courseid = @id";
+
+                MySqlCommand Command = connection.CreateCommand();
+                // Sanitize course id value
+                Command.Parameters.AddWithValue("@id", courseid);
+
+                Command.CommandText = query;
+
+                return Command.ExecuteNonQuery();
             }
             return 0;
         }

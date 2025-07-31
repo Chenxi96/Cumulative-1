@@ -19,14 +19,14 @@ Checklist:
 - [ ] (2 Marks) Your web page that confirms the action to delete a Teacher
 (Initiative: 8 Marks): Earn up to 8 Initiative Marks by improving on MVP
 - [ ] (2 Marks) Error Handling on Delete when trying to delete a teacher that does not exist
-- [ ] (2 Marks) Error Handling on Add when the Teacher Name is empty
+- [x] (2 Marks) Error Handling on Add when the Teacher Name is empty
 - [ ] (2 Marks) Error Handling on Add when the Teacher Hire Date is in the future
 - [ ] (2 Marks) Error Handling on Add when the Employee Number is not “T” followed by digits1
 - [ ] (2 Marks) Error Handling on Add when the Employee Number is already taken by a different Teacher
 - [x] (2 Marks) Add Functionality Students
-- [ ] (2 Marks) Delete Functionality for Students
+- [x] (2 Marks) Delete Functionality for Students
 - [x] (2 Marks) Add Functionality Courses
-- [ ] (2 Marks) Delete Functionality for Courses
+- [x] (2 Marks) Delete Functionality for Courses
 - [ ] (2 Marks) Use JS and AJAX to add a Teacher
 - [ ] (2 Marks) Use JS and AJAX to delete a Teacher
 - [ ] (2 Marks) Modify Teachers table with “teacherworkphone” field, include that field as part of the Add functionality

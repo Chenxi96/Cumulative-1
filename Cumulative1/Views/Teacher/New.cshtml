@@ -1,7 +1,7 @@
 
 
 <h2>Add Teacher</h2>
-<form action="/teacher/create" method="POST">
+<form id="form" action="/teacher/create" method="POST">
     <div>
         <label for="teacherFName">First Name:</label>
         <input id="teacherFName" type="text" name="TeacherFirstName">
@@ -24,3 +24,32 @@
     </div>
     <input type="submit">
 </form>
+
+<script>
+    @* Retrieves form element *@
+    const form = document.getElementById("form");
+
+    @* Form submit will check for first name and last name has been filled in before submission  *@
+    form.onsubmit = function(event) {
+        console.log()
+        if(event.target.firstElementChild.children[1].value === "") {
+            @* Prevent reset of the form *@
+            event.preventDefault()
+            @* Changes border to red and have a place placeholder to say enter first name *@
+            event.target.firstElementChild.children[1].style.border = "1px solid red";
+            event.target.firstElementChild.children[1].style.color = "red";
+            event.target.firstElementChild.children[1].placeholder = "Please enter first name!";
+        }
+
+        if(event.target.children[1].children[1].value === "") {
+            event.preventDefault()
+            @* Changes border to red and have a placeholder to say enter last name *@
+            event.target.children[1].children[1].style.border = "1px solid red";
+            event.target.children[1].children[1].style.color = "red";
+            event.target.children[1].children[1].placeholder = "Please enter last name!";
+        }
+        @* When first and last name has been filled it will submit the form to the server to be added *@
+        return true;
+    }
+
+</script>
