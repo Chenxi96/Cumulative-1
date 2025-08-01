@@ -29,7 +29,7 @@ Checklist:
 - [x] (2 Marks) Delete Functionality for Courses
 - [ ] (2 Marks) Use JS and AJAX to add a Teacher
 - [ ] (2 Marks) Use JS and AJAX to delete a Teacher
-- [ ] (2 Marks) Modify Teachers table with “teacherworkphone” field, include that field as part of the Add functionality
+- [x] (2 Marks) Modify Teachers table with “teacherworkphone” field, include that field as part of the Add functionality
 
 1 Best practice would be to have the Teacher Employee Number managed by the database as a unique
 identifier, similar to the Teacher Id primary key. Not part of this assignment

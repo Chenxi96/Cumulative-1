@@ -89,6 +89,7 @@ namespace Cumulative1.Controllers
                         InfoOfTeacher.TeacherEmployeeNumber = ReaderResult["employeenumber"].ToString();
                         InfoOfTeacher.TeacherHiredDate = Convert.ToDateTime(ReaderResult["hiredate"].ToString());
                         InfoOfTeacher.TeacherSalary = Convert.ToInt32(ReaderResult["salary"]);
+                        InfoOfTeacher.TeacherWorkPhone = ReaderResult["teacherworkphone"].ToString();
 
                         Teacher.Add(InfoOfTeacher); // Add to InfoOfTeacher to Teacher
                     }
@@ -169,6 +170,7 @@ namespace Cumulative1.Controllers
                             Teacher.TeacherEmployeeNumber = ReaderResult["employeenumber"].ToString();
                             Teacher.TeacherHiredDate = Convert.ToDateTime(ReaderResult["hiredate"]);
                             Teacher.TeacherSalary = Convert.ToDecimal(ReaderResult["salary"]);
+                            Teacher.TeacherWorkPhone = ReaderResult["teacherworkphone"].ToString();
                         }
 
                     }
@@ -208,7 +210,7 @@ namespace Cumulative1.Controllers
                 Connection.Open();
 
                 // Insert query string
-                string query = "INSERT INTO teachers(teacherfname, teacherlname, employeenumber, hiredate, salary) VALUE(@teacherfname,@teacherlname,@employeenumber,@hiredate,@salary)";
+                string query = "INSERT INTO teachers(teacherfname, teacherlname, employeenumber, hiredate, salary, teacherworkphone) VALUE(@teacherfname,@teacherlname,@employeenumber,@hiredate,@salary,@workphone)";
                 MySqlCommand Command = Connection.CreateCommand();
 
                 // Sanitize the input field values
@@ -217,6 +219,7 @@ namespace Cumulative1.Controllers
                 Command.Parameters.AddWithValue("@employeenumber", TeacherData.TeacherEmployeeNumber);
                 Command.Parameters.AddWithValue("@hiredate", TeacherData.TeacherHiredDate);
                 Command.Parameters.AddWithValue("@salary", TeacherData.TeacherSalary);
+                Command.Parameters.AddWithValue("@workphone", TeacherData.TeacherWorkPhone);
 
                 Command.CommandText = query; // Add query to CommandText
 

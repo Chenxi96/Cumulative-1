@@ -55,7 +55,6 @@ namespace Cumulative1.Controllers
         }
 
         [HttpGet(template: "listCourses")]
-
         public List<Course> ListCourses() // Method to return a list of courses
         {
             List<Course> Courses = new List<Course>(); // Create an instance of List of courses
@@ -69,7 +68,7 @@ namespace Cumulative1.Controllers
 
                 string query = "select * from courses"; // string query
 
-                using (MySqlDataReader ReaderResult = Command.ExecuteReader()) // Execute
+                using (MySqlDataReader ReaderResult = Command.ExecuteReader())
                 {
                     while (ReaderResult.Read())
                     {
@@ -167,7 +166,7 @@ namespace Cumulative1.Controllers
             {
                 connection.Open();
 
-                string query = "Delete From Courses Where courseid = @id";
+                string query = "Delete From Courses Where courseid = @id"; // query string
 
                 MySqlCommand Command = connection.CreateCommand();
                 // Sanitize course id value
@@ -175,7 +174,7 @@ namespace Cumulative1.Controllers
 
                 Command.CommandText = query;
 
-                return Command.ExecuteNonQuery();
+                return Command.ExecuteNonQuery(); // returns the rows that has been deleted
             }
             return 0;
         }
