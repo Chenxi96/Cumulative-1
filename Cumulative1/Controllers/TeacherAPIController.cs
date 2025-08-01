@@ -179,8 +179,28 @@ namespace Cumulative1.Controllers
         }
 
         [HttpPost(template: "addTeacher")]
-        // Declared a method that adds a teacher in the school db using form data retrieved from browser
-        public int AddTeacher([FromBody] Teacher TeacherData)
+
+        
+        
+        /// <summary>
+        /// Receives an HTTP Post request with teacher data, using the data execute server logic to insert teacher data into the database return the last inserted id
+        /// </summary>
+        /// <param name="TeacherData">Teacher data object from form</param>
+        /// <example>
+        ///     POST : api/teacher/addTeacher 
+        ///     HEADER : application/json
+        ///     BODY : {
+        ///        "teacherFirstName" : "Chenxi",
+        ///        "teacherLastName" : "Lin",
+        ///        "teacherEmployeeNumber" : "T213",
+        ///        "teacherHiredDate" : "2025-08-01",
+        ///        "teacherSalary" : 80.10,
+        ///        "teacherError" : ""
+        ///     } -->
+        ///     34
+        /// </example>
+        /// <returns>a integer referencing the id of the inserted teacher</returns>
+        public int AddTeacher([FromBody] Teacher TeacherData) // Declared a method that adds a teacher in the school db using form data retrieved from browser
         {
             // Connect to database
             using (MySqlConnection Connection = _context.AccessDatabase())
@@ -208,6 +228,20 @@ namespace Cumulative1.Controllers
         }
 
         [HttpDelete(template: "DeleteTeacher")]
+        /// <summary>
+        /// Receives a HTTP POST from form with teacher id as query parameter value
+        /// </summary>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=34  --> 1
+        /// </example>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=0  --> 0
+        /// </example>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=-100 --> 0 
+        /// </example>
+        /// <param name="teacherId">id number for a specific teacher</param>
+        /// <returns>the number of rows to be deleted</returns>
         public int DeleteTeacher(int teacherId) // Method to remove a teacher record
         {
             // Will close connection after the query has been executed

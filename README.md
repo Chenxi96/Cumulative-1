@@ -14,9 +14,9 @@ Checklist:
 - [x] (2 Marks) Project .readme
 (Testing: 8 Marks): Include evidence of the following testing:
 - [ ] (2 Marks) Your API that adds a Teacher using POST Data
-- [ ] (2 Marks) Your API that deletes a Teacher
+- [x] (2 Marks) Your API that deletes a Teacher
 - [ ] (2 Marks) Your web page that allows a user to enter new Teacher information
-- [ ] (2 Marks) Your web page that confirms the action to delete a Teacher
+- [x] (2 Marks) Your web page that confirms the action to delete a Teacher
 (Initiative: 8 Marks): Earn up to 8 Initiative Marks by improving on MVP
 - [ ] (2 Marks) Error Handling on Delete when trying to delete a teacher that does not exist
 - [x] (2 Marks) Error Handling on Add when the Teacher Name is empty
