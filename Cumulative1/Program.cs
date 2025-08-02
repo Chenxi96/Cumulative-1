@@ -15,6 +15,7 @@ builder.Services.AddScoped<TeacherCourses>();
 // Api reference
 builder.Services.AddScoped<TeacherAPIController>();
 builder.Services.AddScoped<StudentAPIController>();
+builder.Services.AddScoped<CourseAPIController>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

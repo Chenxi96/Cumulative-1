@@ -1,6 +1,7 @@
 @model IEnumerable<Cumulative1.Models.Teacher>
 
 <h2>Specify the Date to filter</h2>
+<a href="./new">Add a new teacher</a>
 <form action="/teacher/list" method="get">
     <input type="date" name="startdate">
     <input type="date" name="enddate">
@@ -14,5 +15,6 @@
         <p>Employee Number: @Teacher.TeacherEmployeeNumber</p>
         <p>Hired Date: @Teacher.TeacherHiredDate</p>
         <p>Salary: @Teacher.TeacherSalary</p>
+        <p>Work Number: @Teacher.TeacherWorkPhone</p>
     </div>
 }

@@ -1,0 +1,67 @@
+
+
+<h2>Add Teacher</h2>
+<form id="form" action="/teacher/create" method="POST">
+    <div>
+        <label for="teacherFName">First Name:</label>
+        <input id="teacherFName" type="text" name="TeacherFirstName">
+    </div>
+    <div>
+        <label for="teacherLName">Last Name:</label>
+        <input id="teacherLName" type="text" name="TeacherLastName">
+    </div>
+    <div>
+        <label for="employeeNumber">Employee Number:</label>
+        <input id="employeeNumber" type="text" name="TeacherEmployeeNumber">
+    </div>
+    <div>
+        <label for="hireDate">Hire Date:</label>
+        <input id="hireDate" type="date" name="TeacherHiredDate">
+    </div>
+    <div>
+        <label for="phoneNumber">Work Phone:</label>
+        <input type="tel" placeholder="(647)-123-4567" name="teacherWorkPhone">
+    </div>
+    <div>
+        <label for="salary">Salary:</label>
+        <input id="salary" type="number" step="0.01" name="TeacherSalary ">
+    </div>
+    <input type="submit">
+</form>
+
+<script>
+    @* Retrieves form element *@
+    const form = document.getElementById("form");
+
+    @* Form submit will check for first name and last name has been filled in before submission  *@
+    form.onsubmit = function(event) {
+        if(event.target.firstElementChild.children[1].value === "") {
+            @* Prevent reset of the form *@
+            event.preventDefault()
+
+            @* Changes border to red and have a place placeholder to say enter first name *@
+            event.target.firstElementChild.children[1].style.border = "1px solid red";
+            event.target.firstElementChild.children[1].style.color = "red";
+            event.target.firstElementChild.children[1].placeholder = "Please enter first name!";
+        }else {
+            event.target.firstElementChild.children[1].style.border = "revert";
+            event.target.firstElementChild.children[1].style.color = "revert";
+            event.target.firstElementChild.children[1].placeholder = "";
+        }
+
+        if(event.target.children[1].children[1].value === "") {
+            event.preventDefault()
+            @* Changes border to red and have a placeholder to say enter last name *@
+            event.target.children[1].children[1].style.border = "1px solid red";
+            event.target.children[1].children[1].style.color = "red";
+            event.target.children[1].children[1].placeholder = "Please enter last name!";
+        } else {
+            event.target.children[1].children[1].style.border = "revert";
+            event.target.children[1].children[1].style.color = "revert";
+            event.target.firstElementChild.children[1].placeholder = "";
+        }
+        @* When first and last name has been filled it will submit the form to the server to be added *@
+        return true;
+    }
+
+</script>

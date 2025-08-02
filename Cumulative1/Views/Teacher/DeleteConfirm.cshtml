@@ -1,0 +1,11 @@
+@model Cumulative1.Models.Teacher
+
+<div>
+    <h2>Name: @Model.TeacherFirstName @Model.TeacherLastName</h2>
+    <p>Employee Number: @Model.TeacherEmployeeNumber</p>
+    <p>Would you want to delete?</p>
+    <a href="/teacher/show?teacherId=@Model.TeacherId">No, go back</a>
+    <form method="post" action="/teacher/delete?teacherId=@Model.TeacherId">
+        <input type="submit" value="Yes, Delete">
+    </form>
+</div>

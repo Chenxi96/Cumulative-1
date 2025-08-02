@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Cumulative1.Models;
-using Cumulative1.ViewModels;
+using System.Diagnostics;
 
 namespace Cumulative1.Controllers
 {
@@ -50,7 +50,7 @@ namespace Cumulative1.Controllers
         /// <returns>A List of teacher objects</returns>
 
         // Declared a function that returns a List with Teacher as the generic type parameter
-        public List<Teacher> ListTeachers(DateTime ?startDate, DateTime ?endDate)
+        public List<Teacher> ListTeachers(DateTime? startDate, DateTime? endDate)
         {
             // Declared a variable that returns a List with Teacher as generic parameter type
             List<Teacher> Teacher = new List<Teacher>();
@@ -88,6 +88,7 @@ namespace Cumulative1.Controllers
                         InfoOfTeacher.TeacherEmployeeNumber = ReaderResult["employeenumber"].ToString();
                         InfoOfTeacher.TeacherHiredDate = Convert.ToDateTime(ReaderResult["hiredate"].ToString());
                         InfoOfTeacher.TeacherSalary = Convert.ToInt32(ReaderResult["salary"]);
+                        InfoOfTeacher.TeacherWorkPhone = ReaderResult["teacherworkphone"].ToString();
 
                         Teacher.Add(InfoOfTeacher); // Add to InfoOfTeacher to Teacher
                     }
@@ -101,7 +102,7 @@ namespace Cumulative1.Controllers
         // Define a route to "GetAllTeachers" which is a get method
         [HttpGet(template: "FindTeacher")]
 
-        
+
 
         /// <summary>
         /// Receives a HTTP GET Request and return a Teacher object from the database
@@ -124,15 +125,13 @@ namespace Cumulative1.Controllers
         /// "courses":[]}
         /// </example>
         /// <returns>A Teacher object</returns>
-        public TeacherCourses FindTeacher(int teacherid) // Declared a function that returns a data type of Teacher and has teacherid as a number parameter
+        public Teacher FindTeacher(int teacherid) // Declared a function that returns a data type of Teacher and has teacherid as a number parameter
         {
 
             // Declare Teacher variable with the data type of Teacher and initialize with a Teacher class
             Teacher Teacher = new Teacher();
 
-            List<Course> Courses = new List<Course>();
 
-            TeacherCourses teacherWithCourses = new TeacherCourses();
 
             // Creates a connection to the database and dispose connection when code is finished.
             using (MySqlConnection Connection = _context.AccessDatabase())
@@ -170,53 +169,131 @@ namespace Cumulative1.Controllers
                             Teacher.TeacherEmployeeNumber = ReaderResult["employeenumber"].ToString();
                             Teacher.TeacherHiredDate = Convert.ToDateTime(ReaderResult["hiredate"]);
                             Teacher.TeacherSalary = Convert.ToDecimal(ReaderResult["salary"]);
+                            Teacher.TeacherWorkPhone = ReaderResult["teacherworkphone"].ToString();
                         }
 
                     }
                 }
             }
 
+            return Teacher;
+        }
+
+        [HttpPost(template: "addTeacher")]
+
+        
+        
+        /// <summary>
+        /// Receives an HTTP Post request with teacher data, using the data execute server logic to insert teacher data into the database return the last inserted id
+        /// </summary>
+        /// <param name="TeacherData">Teacher data object from form</param>
+        /// <example>
+        ///     POST : api/teacher/addTeacher 
+        ///     HEADER : application/json
+        ///     BODY REQUEST : {
+        ///        "teacherFirstName" : "Chenxi",
+        ///        "teacherLastName" : "Lin",
+        ///        "teacherEmployeeNumber" : "T213",
+        ///        "teacherHireDate" : "2025-08-01",
+        ///        "teacherSalary" : 80.10,
+        ///        "teacherWorkPhone" : "123-456-7891"
+        ///        "teacherError" : ""
+        ///     } ->
+        ///     Inserted teacher id as a number
+        /// </example>
+        /// <example>
+        ///     POST : api/teacher/addTeacher
+        ///     HEADER : application/json
+        ///     BODY REQUEST : {
+        ///         "teacherFirstName" : "",
+        ///         "teacherLastName" : "",
+        ///         "teacherEmployeeNumber" : "",
+        ///         "teacherHireDate" : "",
+        ///         "teacherSalary" : 0,
+        ///         "teacherWorkPhone" : "",
+        ///         "teacherError" : ""
+        ///     } ->
+        ///     Inserted teacher id as a number
+        /// </example>
+        /// <example>
+        ///     POST : api/teacher/addTeacher
+        ///     HEADER : application/json
+        ///     BODY REQUEST : {
+        ///         "teacherFirstName" : "",
+        ///         "teacherLastName" : "select * from teacher",
+        ///         "teacherEmployeeNumber" : "TTTINK#*$)@",
+        ///         "teacherHireDate" : "",
+        ///         "teacherSalary" : 0,
+        ///         "teacherWorkPhone" : "",
+        ///         "teacherError" : ""
+        ///     } ->
+        ///     Inserted teacher id as a number
+        /// </example>
+        /// <returns>a number referencing the id of the inserted teacher</returns>
+        public int AddTeacher([FromBody] Teacher TeacherData) // Declared a method that adds a teacher in the school db using form data retrieved from browser
+        {
+            // Connect to database
             using (MySqlConnection Connection = _context.AccessDatabase())
             {
-                Connection.Open(); // Connects to the Database
+                Connection.Open();
 
-                // Declared Query variable to retrieve a record in courses table that has a specific teacher id
-                string Query = $"Select * from courses where teacherid = @key";
+                // Insert query string
+                string query = "INSERT INTO teachers(teacherfname, teacherlname, employeenumber, hiredate, salary, teacherworkphone) VALUE(@teacherfname,@teacherlname,@employeenumber,@hiredate,@salary,@workphone)";
+                MySqlCommand Command = Connection.CreateCommand();
 
-                MySqlCommand Command = Connection.CreateCommand(); // Call the Create method to initiate the search Query
+                // Sanitize the input field values
+                Command.Parameters.AddWithValue("@teacherfname", TeacherData.TeacherFirstName);
+                Command.Parameters.AddWithValue("@teacherlname", TeacherData.TeacherLastName);
+                Command.Parameters.AddWithValue("@employeenumber", TeacherData.TeacherEmployeeNumber);
+                Command.Parameters.AddWithValue("@hiredate", TeacherData.TeacherHiredDate);
+                Command.Parameters.AddWithValue("@salary", TeacherData.TeacherSalary);
+                Command.Parameters.AddWithValue("@workphone", TeacherData.TeacherWorkPhone);
 
-                Command.Parameters.AddWithValue("@key", teacherid);
-                Command.Prepare();
+                Command.CommandText = query; // Add query to CommandText
 
-                Command.CommandText = Query; // Set the Sql Statement
+                Command.ExecuteNonQuery(); // execute query request
 
-                // Send a query search request to the database to search a query
-                using (MySqlDataReader ReaderResult = Command.ExecuteReader())
-                {
+                return Convert.ToInt32(Command.LastInsertedId); // return the inserted teacher id
+            }
+            return 0; // return 0 if database connection fails
+        }
 
-                    // Loop Through Query until record returns false
-                    while (ReaderResult.Read())
-                    {
-                        Course Course = new Course();
+        [HttpDelete(template: "DeleteTeacher")]
+        /// <summary>
+        /// Receives a HTTP POST from form with teacher id as query parameter value
+        /// </summary>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=34  --> 1
+        /// </example>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=0  --> 0
+        /// </example>
+        /// <example>
+        ///     DELETE : api/teacher/DeleteTeacher?teacherId=-100 --> 0 
+        /// </example>
+        /// <param name="teacherId">id number for a specific teacher</param>
+        /// <returns>the number of rows to be deleted</returns>
+        public int DeleteTeacher(int teacherId) // Method to remove a teacher record
+        {
+            // Will close connection after the query has been executed
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
 
-                        // Stores values into Course
-                        Course.CourseId = Convert.ToInt32(ReaderResult["courseid"]);
-                        Course.CourseCode = ReaderResult["coursecode"].ToString();
-                        Course.CourseTeacherId = Convert.ToInt32(ReaderResult["teacherid"]);
-                        Course.CourseStartDate = Convert.ToDateTime(ReaderResult["startdate"]);
-                        Course.CourseFinishDate = Convert.ToDateTime(ReaderResult["finishdate"]);
-                        Course.CourseName = ReaderResult["coursename"].ToString();
+                string query = "DELETE FROM teachers WHERE teacherid = @id"; // Query string
+                MySqlCommand Command = Connection.CreateCommand();
+                // Sanitize teacher id
+                Command.Parameters.AddWithValue("@id", teacherId);
 
-                        Courses.Add(Course);
-                    }
+                Command.CommandText = query; // Add query string to command text
 
-                }
+                return Command.ExecuteNonQuery(); // Execute query
             }
 
-            teacherWithCourses.Courses = Courses;
-            teacherWithCourses.Teacher = Teacher;
-            return teacherWithCourses;
+            return 0; // Return 0 if fails
         }
+
+
 
     }
 }

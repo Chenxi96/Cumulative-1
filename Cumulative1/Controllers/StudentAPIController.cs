@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Cumulative1.Models;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace Cumulative1.Controllers
 {
-    [Route(template: "api/Students")]
+    [Route(template: "api/Student")]
     [ApiController]
     public class StudentAPIController : ControllerBase
     {
@@ -18,6 +19,7 @@ namespace Cumulative1.Controllers
         }
 
         [HttpGet(template: "ListStudent")]
+        // Method that returns a list of students
         public List<Student> ListStudent()
         {
             // Declare Students variable with a list and a type of student and initialized list with type student
@@ -55,7 +57,7 @@ namespace Cumulative1.Controllers
         }
 
         [HttpGet(template: "FindStudent")]
-
+        // Method that return a specific student
         public Student FindStudent(int studentId)
         {
             Student Student = new Student();
@@ -68,7 +70,7 @@ namespace Cumulative1.Controllers
 
                 MySqlCommand Command = Connection.CreateCommand();
 
-                Command.Parameters.AddWithValue("@key", studentId);
+                Command.Parameters.AddWithValue("@key", studentId); // Sanitize input to be used for the query string
 
                 Command.CommandText = Query;
                 Command.Prepare();
@@ -88,6 +90,51 @@ namespace Cumulative1.Controllers
                 }
             }
             return Student;
+        }
+        [HttpPost(template: "AddStudent")] // Route to Add student method
+        public int AddStudent([FromBody] Student StudentData) // Created a method to add a student and returns student id
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open(); // open connection to database
+
+                // Query string for inserting new student
+                string query = "INSERT INTO students(studentfname, studentlname, studentnumber, enroldate) VALUE(@firstname, @lastname, @studentnumber, @enroldate)";
+
+                // Created object to be sent to database
+                MySqlCommand Command = Connection.CreateCommand();
+                // Sanitize parameter value to be added to query string
+                Command.Parameters.AddWithValue("@firstname", StudentData.StudentFirstName);
+                Command.Parameters.AddWithValue("@lastname", StudentData.StudentLastName);
+                Command.Parameters.AddWithValue("@studentnumber", StudentData.StudentNumber);
+                Command.Parameters.AddWithValue("@enroldate", StudentData.StudentEnrolDate);
+
+                Command.CommandText = query;
+
+                // Execute Query
+                Command.ExecuteNonQuery();
+                return Convert.ToInt32(Command.LastInsertedId); // Return inserted student id as a number
+            }
+            return 0; // return 0 if failed to create
+        }
+        [HttpDelete(template: "DeleteStudent")]
+        // Created a method to delete a specific student record
+        public int DeleteStudent(int studentId)
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+
+                string query = "Delete From students where studentid = @id"; // query string
+
+                MySqlCommand Command = Connection.CreateCommand();
+                Command.Parameters.AddWithValue("@id", studentId); // Sanitize input value
+
+                Command.CommandText = query; 
+
+                return Command.ExecuteNonQuery(); // Execute Query Search
+            }
+            return 0;
         }
     }
 }
