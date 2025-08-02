@@ -8,14 +8,14 @@ Checklist:
 - [x] (2 Marks) A web page that allows a user to enter new Teacher information
 - [x] (2 Marks) A web page that confirms the action to delete a Teacher
 (Qualitative: 8 Marks): Document your work with (a) descriptive:
-- [ ] (2 Marks) Summary blocks for your API methods
-- [ ] (2 Marks) Teacher Model Properties (Teacher.cs)
-- [ ] (2 Marks) Variable names
+- [x] (2 Marks) Summary blocks for your API methods
+- [x] (2 Marks) Teacher Model Properties (Teacher.cs)
+- [x] (2 Marks) Variable names
 - [x] (2 Marks) Project .readme
 (Testing: 8 Marks): Include evidence of the following testing:
-- [ ] (2 Marks) Your API that adds a Teacher using POST Data
+- [x] (2 Marks) Your API that adds a Teacher using POST Data
 - [x] (2 Marks) Your API that deletes a Teacher
-- [ ] (2 Marks) Your web page that allows a user to enter new Teacher information
+- [x] (2 Marks) Your web page that allows a user to enter new Teacher information
 - [x] (2 Marks) Your web page that confirms the action to delete a Teacher
 (Initiative: 8 Marks): Earn up to 8 Initiative Marks by improving on MVP
 - [ ] (2 Marks) Error Handling on Delete when trying to delete a teacher that does not exist

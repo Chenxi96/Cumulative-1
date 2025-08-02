@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Cumulative1.Models;
-using Cumulative1.ViewModels;
 using System.Diagnostics;
 
 namespace Cumulative1.Controllers
@@ -191,17 +190,46 @@ namespace Cumulative1.Controllers
         /// <example>
         ///     POST : api/teacher/addTeacher 
         ///     HEADER : application/json
-        ///     BODY : {
+        ///     BODY REQUEST : {
         ///        "teacherFirstName" : "Chenxi",
         ///        "teacherLastName" : "Lin",
         ///        "teacherEmployeeNumber" : "T213",
-        ///        "teacherHiredDate" : "2025-08-01",
+        ///        "teacherHireDate" : "2025-08-01",
         ///        "teacherSalary" : 80.10,
+        ///        "teacherWorkPhone" : "123-456-7891"
         ///        "teacherError" : ""
-        ///     } -->
-        ///     34
+        ///     } ->
+        ///     Inserted teacher id as a number
         /// </example>
-        /// <returns>a integer referencing the id of the inserted teacher</returns>
+        /// <example>
+        ///     POST : api/teacher/addTeacher
+        ///     HEADER : application/json
+        ///     BODY REQUEST : {
+        ///         "teacherFirstName" : "",
+        ///         "teacherLastName" : "",
+        ///         "teacherEmployeeNumber" : "",
+        ///         "teacherHireDate" : "",
+        ///         "teacherSalary" : 0,
+        ///         "teacherWorkPhone" : "",
+        ///         "teacherError" : ""
+        ///     } ->
+        ///     Inserted teacher id as a number
+        /// </example>
+        /// <example>
+        ///     POST : api/teacher/addTeacher
+        ///     HEADER : application/json
+        ///     BODY REQUEST : {
+        ///         "teacherFirstName" : "",
+        ///         "teacherLastName" : "select * from teacher",
+        ///         "teacherEmployeeNumber" : "TTTINK#*$)@",
+        ///         "teacherHireDate" : "",
+        ///         "teacherSalary" : 0,
+        ///         "teacherWorkPhone" : "",
+        ///         "teacherError" : ""
+        ///     } ->
+        ///     Inserted teacher id as a number
+        /// </example>
+        /// <returns>a number referencing the id of the inserted teacher</returns>
         public int AddTeacher([FromBody] Teacher TeacherData) // Declared a method that adds a teacher in the school db using form data retrieved from browser
         {
             // Connect to database
