@@ -130,11 +130,35 @@ namespace Cumulative1.Controllers
                 MySqlCommand Command = Connection.CreateCommand();
                 Command.Parameters.AddWithValue("@id", studentId); // Sanitize input value
 
-                Command.CommandText = query; 
+                Command.CommandText = query;
 
                 return Command.ExecuteNonQuery(); // Execute Query Search
             }
             return 0;
+        }
+
+        [HttpPut(template: "updatestudent")]
+        // Declared a method that updates a student record
+        public Student UpdateStudent(int id, [FromBody] Student studentData)
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                // Query string
+                string query = "UPDATE students SET studentfname=@firstname, studentlname=@lastname, studentnumber=@studentnumber, enroldate=@enroldate WHERE studentid=@id";
+
+                MySqlCommand Command = Connection.CreateCommand();
+
+                // Sanitize the input values
+                Command.Parameters.AddWithValue("@id", studentData.StudentId);
+                Command.Parameters.AddWithValue("@firstname", studentData.StudentFirstName);
+                Command.Parameters.AddWithValue("@lastname", studentData.StudentLastName);
+                Command.Parameters.AddWithValue("@studentnumber", studentData.StudentNumber);
+                Command.Parameters.AddWithValue("@enroldate", studentData.StudentEnrolDate);
+
+                Command.ExecuteNonQuery(); // Execute query
+            }
+            return FindStudent(id); // Return student record
         }
     }
 }

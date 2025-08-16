@@ -1,0 +1,86 @@
+@model Cumulative1.Models.Teacher
+
+<a href="/teacher/show?teacherid=@Model.TeacherId" >Go Back</a>
+<form id="editForm" action="/teacher/update?id=@Model.TeacherId" method="post">
+    <div>
+        <label for="fname">First Name:</label>
+        <input id="fname" type="text" name="teacherFirstName" value="@Model.TeacherFirstName">
+    </div>
+    <div>
+        <label for="lname">Last Name:</label>
+        <input id="lname" type="text" name="teacherlastname" value="@Model.TeacherLastName">
+    </div>
+    <div>
+        <label for="employeenumber">Employee Number:</label>
+        <input type="text"name="teacheremployeenumber" value="@Model.TeacherEmployeeNumber">
+    </div>
+    <div>
+        <label for="hiredate"></label>
+        <input id="hiredate" type="date" name="teacherhiredate" value="@Model.TeacherHiredDate">
+    </div>
+    <div>
+        <label for="salary">Salary:</label>
+        <input id="salary" type="number" name="teachersalary" value="@Model.TeacherSalary">
+    </div>
+    <div>
+        <label for="phonenumber">Phone number:</label>
+        <input id="phonenumber" type="text" name="TeacherWorkPhone" value="@Model.TeacherWorkPhone">
+    </div>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    @* Select form element *@
+    const formElement = document.getElementById("editForm");
+    @* Select first name element *@
+    const firstName = document.getElementById("fname");
+    @* Select last name element *@
+    const lastName = document.getElementById("lname");
+    @* Select salary input element *@
+    const salaryAmount = document.getElementById("salary")
+
+    formElement.onsubmit = (event) => {
+        if(firstName.value === "") {
+            @* Prevent browser reset *@
+            event.preventDefault();
+
+            @* Changes border to red and have a place placeholder to say enter first name *@
+            firstName.style.border = "1px solid red";
+            firstName.style.color = "red";
+            firstName.placeholder = "Please enter first name!";
+        } else {
+            @* Revert styles back *@
+            lastName.style.border = "revert";
+            lastName.style.color = "revert";
+            lastName.placeholder = "";
+        }
+        
+        if(lastName.value === "") {
+            @* Prevent browser reset *@
+            event.preventDefault()
+
+            @* Changes border to red and have a place placeholder to say enter first name *@
+            lastName.style.border = "1px solid red";
+            lastName.style.color = "red";
+            lastName.placeholder = "Please enter last name!";
+        } else {
+            lastName.style.border = "revert";
+            lastName.style.color = "revert";
+            lastName.placeholder = "";
+        }
+        
+        @* If salary is less than 0 *@
+        if(salary.value < 0) {
+            @* Prevent reset of browser *@
+            event.preventDefault()
+            @* Show border red and text to be red *@
+            salaryAmount.style.border = "1px solid red";
+            salaryAmount.style.color = "red";
+        } else {
+            salaryAmount.style.border = "revert";
+            salaryAmount.style.color = "revert";
+        }
+        return true;
+    }
+
+</script>
