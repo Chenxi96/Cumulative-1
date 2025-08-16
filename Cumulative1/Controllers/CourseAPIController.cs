@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Cumulative1.Models;
 using MySql.Data.MySqlClient;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Cumulative1.Controllers
 {
@@ -177,6 +176,29 @@ namespace Cumulative1.Controllers
                 return Command.ExecuteNonQuery(); // returns the rows that has been deleted
             }
             return 0;
+        }
+        [HttpPut(template: "updateCourse")]
+        public Course UpdateCourse(int id, [FromBody] Course courseData)
+        {
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                // Query string
+                string query = "UPDATE courses SET coursecode=@coursecode, teacherid=@teacherid, startdate=@startdate, finishdate=@finishdate, coursename=@coursename  WHERE courseid=@id";
+
+                MySqlCommand Command = Connection.CreateCommand();
+
+                // Sanitize the input values
+                Command.Parameters.AddWithValue("@id", courseData.CourseId);
+                Command.Parameters.AddWithValue("@coursecode", courseData.CourseCode);
+                Command.Parameters.AddWithValue("@teacherid", courseData.CourseTeacherId);
+                Command.Parameters.AddWithValue("@startdate", courseData.CourseStartDate);
+                Command.Parameters.AddWithValue("@finishdate", courseData.CourseFinishDate);
+                Command.Parameters.AddWithValue("@coursename", courseData.CourseName);
+
+                Command.ExecuteNonQuery(); // Execute query
+            }
+            return FindCourse(courseData.CourseCode); // Return student record
         }
     
     }

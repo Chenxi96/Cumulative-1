@@ -293,7 +293,111 @@ namespace Cumulative1.Controllers
             return 0; // Return 0 if fails
         }
 
+        /// <summary>
+        /// Receives an HTTP PUT request with an id and updated teacher form data and returns the new teacher record that has been changed.
+        /// </summary>
+        /// <param name="id">teacher id number</param>
+        /// <param name="teacherData">teacher data from form</param>
+        /// <example>
+        ///     PUT : api/teacher/updateteacher?id=11 
+        ///     HEADER : Content-Type: application/json
+        ///     BODY REQUEST : 
+        ///     {
+        ///         "teacherId":11,
+        ///         "teacherFirstName": "Dawn",
+        ///         "teacherLastName": "Lin",
+        ///         "teacherHiredDate": "2025-10-15",
+        ///         "teacherSalary": 0,
+        ///         "teacherWorkPhone": "6479831234", 
+        ///         "teacherEmployeeNumber": "T911", 
+        ///         "teacherError": ""
+        ///     }
+        ///     -> 
+        ///     {
+        ///         "teacherId":11,"teacherFirstName":"Dawn",
+        ///         "teacherLastName":"Lin",
+        ///         "teacherEmployeeNumber": "T911",
+        ///         "teacherHiredDate":"2025-10-15T00:00:00",
+        ///         "teacherSalary":0.00,
+        ///         "teacherWorkPhone":"617-8103141",
+        ///         "teacherError":null
+        ///     }
+        /// </example>
+        /// <example>
+        ///     PUT : api/teacher/updateteacher?id=99
+        ///     HEADER : Content-Type: application/json
+        ///     BODY REQUEST : 
+        ///     {
+        ///         "teacherId":99,
+        ///         "teacherFirstName": "Dawn",
+        ///         "teacherLastName": "Lin",
+        ///         "teacherHiredDate": "2025-10-15",
+        ///         "teacherSalary": 10,
+        ///         "teacherWorkPhone": "6371231341", 
+        ///         "teacherEmployeeNumber": "T410", 
+        ///         "teacherError": ""
+        ///     } -> 
+        ///     {
+        ///         "teacherId":0,"teacherFirstName":null,
+        ///         "teacherLastName":null,
+        ///         "teacherEmployeeNumber":null,
+        ///         "teacherHiredDate":"0001-01-01T00:00:00",
+        ///         "teacherSalary":0,
+        ///         "teacherWorkPhone":null,
+        ///         "teacherError":"No Teacher Record Found"
+        ///     }
+        /// </example>
+        /// <example>
+        ///     PUT : api/teacher/updateteacher?id=-10
+        ///     HEADER : Content-Type: application/json
+        ///     BODY REQUEST : 
+        ///     {
+        ///         "teacherId":-10,
+        ///         "teacherFirstName": "Dawn",
+        ///         "teacherLastName": "Lin",  
+        ///         "teacherHiredDate": "2025-10-15",
+        ///         "teacherSalary": 10,
+        ///         "teacherWorkPhone": "6478001431", 
+        ///         "teacherEmployeeNumber": "T555", 
+        ///         "teacherError": ""
+        ///     } ->
+        ///     {
+        ///         "teacherId":0,
+        ///         "teacherFirstName":null,
+        ///         "teacherLastName":null,
+        ///         "teacherEmployeeNumber":null,
+        ///         "teacherHiredDate":"0001-01-01T00:00:00",
+        ///         "teacherSalary":0,
+        ///         "teacherWorkPhone":null,
+        ///         "teacherError":"No Teacher Record Found"
+        ///     }
+        /// </example>
+        /// <returns>Updated teacher record</returns>
+        [HttpPut(template: "updateTeacher")]
+        public Teacher UpdateTeacher(int id, [FromBody] Teacher teacherData)
+        {
+            // Close the connection after the code inside has been executed
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                // string query
+                string query = "UPDATE teachers SET teacherfname=@firstName, teacherlname=@lastName, employeenumber=@employeeNumber, hiredate=@date, salary=@salary, teacherworkphone=@workphone WHERE teacherid=@id";
 
+                MySqlCommand Command = Connection.CreateCommand();
+                // Sanitize the values to be used in the query
+                Command.Parameters.AddWithValue("@id", id);
+                Command.Parameters.AddWithValue("@firstName", teacherData.TeacherFirstName);
+                Command.Parameters.AddWithValue("@lastName", teacherData.TeacherLastName);
+                Command.Parameters.AddWithValue("@employeeNumber", teacherData.TeacherEmployeeNumber);
+                Command.Parameters.AddWithValue("@workphone", teacherData.TeacherWorkPhone);
+                Command.Parameters.AddWithValue("@date", teacherData.TeacherHiredDate);
+                Command.Parameters.AddWithValue("@salary", teacherData.TeacherSalary);
 
+                Command.CommandText = query; // Add query string to command text
+
+                Command.ExecuteNonQuery(); // Execute the query
+            }
+            return FindTeacher(id); // Return the specific teacher record
+        }
     }
 }

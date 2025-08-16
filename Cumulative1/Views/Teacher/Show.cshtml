@@ -5,6 +5,7 @@
     <div id="body-container">
         <h2>@Model.Teacher.TeacherFirstName @Model.Teacher.TeacherLastName</h2>
         <a href="/Teacher/deleteconfirm?teacherId=@Model.Teacher.TeacherId">Delete</a>
+        <a href="/teacher/edit?id=@Model.Teacher.TeacherId">Edit</a>
         <p>Teacher ID: @Model.Teacher.TeacherId</p>
         <p>Employee Number: @Model.Teacher.TeacherEmployeeNumber</p>
         <p>Hired Date: @Model.Teacher.TeacherHiredDate</p>

@@ -70,5 +70,21 @@ namespace Cumulative1.Controllers
             _teacherApi.DeleteTeacher(teacherId); // Deletes specific teacher with teacher id
             return RedirectToAction("list"); // Redirects to list of teacher page
         }
+
+        // Declared a method that edits a specific teacher record
+        public IActionResult Edit(int id)
+        {
+            Teacher Teacher = _teacherApi.FindTeacher(id); // Find a specific teacher record
+
+            return View(Teacher); // Returns a view page with the specific returned teacher record
+        }
+
+        // Declared a method that updates the edited teacher record
+        public IActionResult Update(int id, Teacher teacherData)
+        {
+            _teacherApi.UpdateTeacher(id, teacherData); // Updates the edited teacher record
+
+            return RedirectToAction("Show", new { teacherid = id }); // Redirects to the show page to the updated teacher record
+        }
     }
 }
