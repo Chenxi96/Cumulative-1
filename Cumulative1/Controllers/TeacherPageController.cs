@@ -81,7 +81,7 @@ namespace Cumulative1.Controllers
 
         // Declared a method that updates the edited teacher record
         public IActionResult Update(int id, Teacher teacherData)
-        {
+        {          
             _teacherApi.UpdateTeacher(id, teacherData); // Updates the edited teacher record
 
             return RedirectToAction("Show", new { teacherid = id }); // Redirects to the show page to the updated teacher record
